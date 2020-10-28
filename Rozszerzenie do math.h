@@ -1,6 +1,6 @@
 #include <iostream>
 
-namespace MF
+namespace mf
 {
   int Signum(auto x)
   {
