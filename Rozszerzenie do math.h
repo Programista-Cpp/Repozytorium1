@@ -15,11 +15,6 @@ namespace mathFunctions
   {
     auto SquareArea(auto a)
     {
-      if(long long(a) != a || long double(a) != a || unsigned long long(a) != a)
-      {
-        cerr<<"Podaj numer! Give number!"<<endl;
-        return SquareArea(a);
-      } //Wyjatek
      else return a*a;
    auto RectangleArea(auto a, auto b)
    {
