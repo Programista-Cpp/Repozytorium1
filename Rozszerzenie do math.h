@@ -13,12 +13,7 @@ namespace mathFunctions
   }
   namespace areas
   {
-    auto SquareArea(auto a)
-    {
-     else return a*a;
-   auto RectangleArea(auto a, auto b)
-   {
-     else return a*b;
-   }
-    }
+    auto SquareArea(auto a) return a*a;
+   auto RectangleArea(auto a, auto b) return a*b;
+  } //namespace areas
 } //namespace funkcjeMatematyczne
