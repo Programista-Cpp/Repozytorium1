@@ -2,7 +2,7 @@
 
 namespace mf
 {
-  auto Signum(auto x)
+  int Signum(auto x)
   {
       if(x > 0) return 1;
       else if(x < 0) return -1;
@@ -14,4 +14,8 @@ namespace mf
   
     auto RectangleArea(auto a, auto b) 
       return a*b;
-} //namespace fm
+  
+  auto TriangleArea(auto a, auto h)
+      return (a*h)/2; 
+  
+} //namespace funkcjeMatematyczne
