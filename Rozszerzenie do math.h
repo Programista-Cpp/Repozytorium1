@@ -14,4 +14,4 @@ namespace mf
   
     auto RectangleArea(auto a, auto b) 
       return a*b;
-} //namespace funkcjeMatematyczne
+} //namespace fm
