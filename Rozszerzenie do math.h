@@ -9,13 +9,14 @@ namespace mf
       else return 0;
   }
 
-    auto SquareArea(auto a) 
+  auto SquareArea(auto a) 
       return a*a;
   
-    auto RectangleArea(auto a, auto b) 
+  auto RectangleArea(auto a, auto b) 
       return a*b;
   
   auto TriangleArea(auto a, auto h)
       return (a*h)/2; 
-  
+  int ParallelogramArea(auto a, auto h)
+    return TriangleArea(a, h);
 } //namespace mf
