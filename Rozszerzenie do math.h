@@ -11,6 +11,7 @@ namespace MF
 
     auto SquareArea(auto a) 
       return a*a;
+  
     auto RectangleArea(auto a, auto b) 
       return a*b;
 } //namespace funkcjeMatematyczne
