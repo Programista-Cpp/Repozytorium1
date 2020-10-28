@@ -17,6 +17,7 @@ namespace mf
   
   auto TriangleArea(auto a, auto h)
       return (a*h)/2; 
-  int ParallelogramArea(auto a, auto h)
-    return TriangleArea(a, h);
+  
+  auto ParallelogramArea(auto a, auto h)
+    return RectangleArea(a, h);
 } //namespace mf
