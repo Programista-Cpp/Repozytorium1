@@ -18,4 +18,4 @@ namespace mf
   auto TriangleArea(auto a, auto h)
       return (a*h)/2; 
   
-} //namespace funkcjeMatematyczne
+} //namespace mf
