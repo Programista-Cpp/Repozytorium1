@@ -2,30 +2,88 @@
   #define EXT_MATH_H_DOLACZONE
   
   // Math
-  namespace Math
+  namespace Math /// This is an incomplete namespace, do not download this. Version: 0.3
   {
-    namespace mathFuncs
+    namespace proto_Vector /// This is a prototype of vector namespace, do not download this file now. Version: 0.1
     {
-      int Signum(auto x)
-      {
-           if(x > 0) return 1;
-           else if(x < 0) return -1;
-           else return 0;
-      }
- 
-       auto SquareArea(auto a)
+       // 2D Vector
+       struct Vector2
        {
-            return a*a;
+         // Coordinates
+         auto x;
+         auto y;
+         // The core of any Vector here -- std::vector
+         std::vector<auto> Vec {x, y};
+         // Vectors' properties
+         enum DIR{HORIZON, VERTIC, CROSS, null} Direction;
+         enum SENSEOFVEC{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null} VecSense;
+         
+         // ---------------------------------------------------------------------------------------------
+         // Operators
+         Vector2& operator-(Vector2& vec, Vector2& vec2)
+         {
+            Vector2 vec3;
+            vec3.x = vec.x - vec2.x;
+            vec3.y = vec.y - vec2.y;
+            return vec3;
+         }
+         Vector2& operator+(Vector2& vec, Vector2& vec2)
+         {
+            Vector2 vec3;
+            vec3.x = vec.x + vec2.x;
+            vec3.y = vec.y + vec2.y;
+            return vec3;
+         }
+         Vector2& operator*(Vector2& vec, Vector2& vec2)
+         {
+            Vector2 vec3;
+            vec3.x = vec.x * vec2.x;
+            vec3.y = vec.y * vec2.y;
+            return vec3;
+         }
+         Vector2& operator/(Vector2& vec, Vector2& vec2)
+         {
+            Vector2 vec3;
+            vec3.x = vec.x / vec2.x;
+            vec3.y = vec.y / vec2.y;
+            return vec3;
+         }
+         Vector2& operator==(Vector2& vec, Vector2& vec2)
+         {
+            if((vec.x == vec2.x) && (vec.y == vec2.y) && (vec.DIR == vec2.DIR) && (vec.SENSEOFVECTOR == vec2.SENSEOFVECTOR))
+                 return true;
+            else return false;
+         }
+         Vector2& operator!=(Vector2& vec, Vector2& vec2)
+         {
+            if((vec.x != vec2.x) || (vec.y != vec2.y) || (vec.DIR != vec2.DIR) || (vec.SENSEOFVECTOR != vec2.SENSEOFVECTOR))
+                 return true;
+            else return false;
+         }
        }
+    }
+    namespace beta_mathFuncs /// This is an incomplete namespace, do not download this. Version: 0.5
+    {
+        int Signum(auto x)
+        {
+             if(x > 0) return 1;
+             else if(x < 0) return -1;
+             else return 0;
+        }
+ 
+        auto SquareArea(auto a)
+        {
+              return a * a;
+        }
     
         auto RectangleArea(auto a, auto b) 
         {
-            return a*b;
+            return a * b;
         }
      
         auto TriangleArea(auto a, auto h)
         {
-            return (a*h)/2; 
+            return (a * h) / 2; 
         }
      
         auto ParallelogramArea(auto a, auto h)
@@ -38,9 +96,9 @@
   //=======================================================================================
   
   // Physics
-  namespace Physics
+  namespace alpha_Physics /// This is an incomplete namespace, do not download this. Version: 0.2
   {
-    namespace quantMechs
+    namespace proto_quantMechs /// This is a prototype of quantum mechanics namespace, do not download this. Version: 0.1.5
     {
       // Quantum Constants
       static unsigned int VoidQuantState; // |0>
