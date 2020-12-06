@@ -1,11 +1,11 @@
-#ifndefef EXT_MATH_H_DOLACZONE
-  #define EXT_MATH_H_DOLACZONE 1
+#ifndefef EXT_MATH_H_INCLUDED
+  #define EXT_MATH_H_INCLUDED 1
   #define DEFAULT_ERR -1
-  #define ERR(x) std::cerr << x'
+  #define ERR(x) std::cerr << x;
   // Math
-  namespace Math /// This is an incomplete namespace, do not download this. Version: 0.3
+  namespace Math /// Version: 0.3
   {
-    namespace proto_Vector /// This is a prototype of vector namespace, do not download this file now. Version: 0.1
+    namespace proto_Vector /// Version: 0.1
     {
        // 2D Vector
        struct Vector2
@@ -80,12 +80,30 @@
             auto max;
         };
     } // namespace pluralTheorem
-    namespace beta_mathFuncs /// This is an incomplete namespace, do not download this. Version: 0.5
+    namespace beta_mathFuncs /// Version: 0.5
     {
+        auto Pow(auto x, auto exp)
+        {
+              double ret = 1.0;
+              while (exp > 0)
+              {
+                    if (exp & 1)
+                          ret *= x;
+                    x *= x;
+                    exp >>= 1;
+              }
+              return ret;
+        }
+        auto Root(auto x, auto n)
+        {
+              return Pow(x, 1 / n);
+        auto Abs(auto x)
+        {
+              return Root(Pow(x, 2), 2);
+        }
         int Signum(auto x)
         {
-             if(x > 0) return 1;
-             else if(x < 0) return -1;
+             if(x != 0) return x / Abs(x);
              else return 0;
         }
  
@@ -108,14 +126,17 @@
         {
             return RectangleArea(a, h);
         }
+
         auto DefaultSafeDiv(auto a, auto b)
         {
             return b != 0 ? a / b : DEFAULT_ERR;
         }
+
         auto SafeDiv(auto a, auto b, auto  err_arg)
         {
             return (b != 0) ? ((a / b) : ERR(err_arg)));
         }
+        
         auto InterpolateFunc(auto y0, auto y1, auto x0, auto x, auto x1) // "Lerp"; Returns y
         {
             return (y0 + ( ( (y1 - y0) / (x1 - x0) ) * (x - x0) ) );
@@ -142,31 +163,32 @@
   //=======================================================================================
   
   // Physics
-  namespace alpha_Physics /// This is an incomplete namespace, do not download this. Version: 0.2
+  namespace alpha_Physics /// Version: 0.2
   {
-    namespace proto_quantMechs /// This is a prototype of quantum mechanics namespace, do not download this. Version: 0.1.5
+    namespace proto_quantMechs /// Version: 0.1.5
     {
       // Quantum Constants
-      static unsigned int VoidQuantState; // |0>
-      
+      static unsigned int VoidQuantState() // |0>
+      {
+        return 0;
+      }
       // Quantum Objects
       struct quantObj
       {
         unsigned int m; // mass
         unsigned int QuantState; // quantum state, |n>
-        unsigned int Creation(quantObj.QuantState&)
+        unsigned int Creation(quantObj.QuantState)
           return ++quantObj.QuantState; /// If you want to change quantum state of void to |2>, you must |0> * (creation operator^2) (in this func: Creation(Creation(VoidQuantState));
         
-        unsigned int Anihilation(quantObj.QuantState&)
+        unsigned int Annihilation(quantObj.QuantState)
           return --quantObj.QuantState;
         
         //--------------------------------------------------------------------------------
         // Operators
         
-        std::ostream& operator<<(std::ostream& quant, quantObj.QuantState) // returns |n>
+        std::ostream& operator<<(std::ostream& quant, quantObj.QuantState) // returns "|n>"
           return quant << '|' << quantObj.QuantState << '>';
       }
-      unsigned int VoidQuantState = 0;
     } // namespace quantObj
   } // namespace Physics
 #endif
