@@ -8,63 +8,85 @@
     namespace proto_Vector /// Version: 0.1
     {
        // 2D Vector
+	   template<typename T>
        struct Vector2
        {
-         // Coordinates
-         auto x;
-         auto y;
-         // The core of any Vector here -- std::vector
-         std::vector<auto> Vec {x, y};
-         // Vectors' properties
+       private:
+		 
+		 // Coordinates
+         T x;
+         T y;
+         
+		 // The core of any Vector here -- std::vector
+         std::vector<T> Vec {x, y};
+         
+		 // Vectors' properties
          enum DIR{HORIZON, VERTIC, CROSS, null} Direction;
          enum SENSEOFVEC{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null} VecSense;
+
+      //================================================================================================= 
+	  public:
          
-         // ---------------------------------------------------------------------------------------------
+		 Vector2() : x(0), y(0), Direction(null), VecSense(null) {}
+		 explicit Vector2(T x, T y, DIR Direction, SENSEOFVEC VecSense)
+		 {
+			 this -> x = x;
+			 this -> y = y;
+			 this -> Direction = Direction;
+			 this -> VecSense = VecSense;
+		 }
+		 // ---------------------------------------------------------------------------------------------
          // Operators
+		 /// TODO: +=, -=, *=, /=, %=
+		 T& operator[](size_t i)
+		 {
+			 return Vec[i];
+		 }
          Vector2& operator-(Vector2& vec, Vector2& vec2)
          {
             Vector2 vec3;
             vec3.x = vec.x - vec2.x;
             vec3.y = vec.y - vec2.y;
-            return vec3;
+            return &vec3;
          }
          Vector2& operator+(Vector2& vec, Vector2& vec2)
          {
             Vector2 vec3;
             vec3.x = vec.x + vec2.x;
             vec3.y = vec.y + vec2.y;
-            return vec3;
+            return &vec3;
          }
          Vector2& operator*(Vector2& vec, Vector2& vec2)
          {
             Vector2 vec3;
             vec3.x = vec.x * vec2.x;
             vec3.y = vec.y * vec2.y;
-            return vec3;
+            return &vec3;
          }
          Vector2& operator/(Vector2& vec, Vector2& vec2)
          {
             Vector2 vec3;
             vec3.x = vec.x / vec2.x;
             vec3.y = vec.y / vec2.y;
-            return vec3;
+            return &vec3;
          }
-         Vector2& operator==(Vector2& vec, Vector2& vec2)
+         bool operator==(Vector2& vec, Vector2& vec2)
          {
             if((vec.x == vec2.x) && (vec.y == vec2.y) && (vec.DIR == vec2.DIR) && (vec.SENSEOFVECTOR == vec2.SENSEOFVECTOR))
                  return true;
             else return false;
          }
-         Vector2& operator!=(Vector2& vec, Vector2& vec2)
+         bool operator!=(Vector2& vec, Vector2& vec2)
          {
-            if((vec.x != vec2.x) || (vec.y != vec2.y) || (vec.DIR != vec2.DIR) || (vec.SENSEOFVECTOR != vec2.SENSEOFVECTOR))
-                 return true;
-            else return false;
+            if(vec == vec2)
+                 return false;
+            else return true;
          }
        }
     }
     namespace proto_pluralTheorem
     {
+		template<typename T>
         struct Range
         {
             enum RANGE {OPEN, CLOSE} range;
@@ -76,8 +98,8 @@
             {
                 return (range == CLOSE);
             }
-            auto min;
-            auto max;
+            T min;
+            T max;
         };
     } // namespace pluralTheorem
     namespace beta_mathFuncs /// Version: 0.5
@@ -129,7 +151,7 @@
 
         auto DefaultSafeDiv(auto a, auto b)
         {
-            return b != 0 ? a / b : DEFAULT_ERR;
+            return (b != 0) ? ((a / b) : DEFAULT_ERR);
         }
 
         auto SafeDiv(auto a, auto b, auto  err_arg)
@@ -149,6 +171,7 @@
                 if((range.min < val) && (val < range.max)) return val;
                 else if(range.min >= val) { val = range.min; return val; }
                 else { val = range.max; return val; }
+			}
             else if(range.IsClose())
             {
                 if((range.min <= val) && (val <= range.max)) return val;
@@ -168,7 +191,7 @@
     namespace proto_quantMechs /// Version: 0.1.5
     {
       // Quantum Constants
-      static unsigned int VoidQuantState() // |0>
+      static unsigned int VoidQuantState() const // |0>
       {
         return 0;
       }
