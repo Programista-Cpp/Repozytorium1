@@ -8,40 +8,40 @@
     namespace proto_Vector /// Version: 0.1
     {
        // 2D Vector
-	   template<typename T>
+       template<typename T>
        struct Vector2
        {
        private:
 		 
-		 // Coordinates
-         T x;
-         T y;
-         
-		 // The core of any Vector here -- std::vector
-         std::vector<T> Vec {x, y};
-         
-		 // Vectors' properties
-         enum DIR{HORIZON, VERTIC, CROSS, null} Direction;
-         enum SENSEOFVEC{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null} VecSense;
+	   // Coordinates
+           T x;
+           T y;
+
+	   // The core of any Vector here -- std::vector
+           std::vector<T> Vec {x, y};
+
+	   // Vectors' properties
+           enum DIR{HORIZON, VERTIC, CROSS, null} Direction;
+       	   enum SENSEOFVEC{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null} VecSense;
 
       //================================================================================================= 
-	  public:
+      public:
          
-		 Vector2() : x(0), y(0), Direction(null), VecSense(null) {}
-		 explicit Vector2(T x, T y, DIR Direction, SENSEOFVEC VecSense)
-		 {
-			 this -> x = x;
-			 this -> y = y;
-			 this -> Direction = Direction;
-			 this -> VecSense = VecSense;
-		 }
-		 // ---------------------------------------------------------------------------------------------
+	  Vector2() : x(0), y(0), Direction(null), VecSense(null) {}
+	  explicit Vector2(T x, T y, DIR Direction, SENSEOFVEC VecSense)
+	  {
+	  	this -> x = x;
+		this -> y = y;
+		this -> Direction = Direction;
+		this -> VecSense = VecSense;
+	  }
+	 // ---------------------------------------------------------------------------------------------
          // Operators
-		 /// TODO: +=, -=, *=, /=, %=
-		 T& operator[](size_t i)
-		 {
-			 return Vec[i];
-		 }
+	 /// TODO: +=, -=, *=, /=, %=
+	 T& operator[](size_t i)
+	 {
+	 	return Vec[i];
+	 }
          Vector2& operator-(Vector2& vec, Vector2& vec2)
          {
             Vector2 vec3;
