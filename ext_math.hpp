@@ -106,45 +106,38 @@
     {
         auto Pow(auto x, auto exp)
         {
-              double ret = 1.0;
-              while (exp > 0)
-              {
-                    if (exp & 1)
-                          ret *= x;
-                    x *= x;
-                    exp >>= 1;
-              }
-              return ret;
+              return x * Pow(x, exp - 1);
         }
         auto Root(auto x, auto n)
         {
               return Pow(x, 1 / n);
-        auto Abs(auto x)
+	}
+        auto Abs(auto x = 0)
         {
               return Root(Pow(x, 2), 2);
         }
-        int Signum(auto x)
+        int Signum(auto x = 0)
         {
              if(x != 0) return x / Abs(x);
              else return 0;
         }
- 
-        auto SquareArea(auto a)
+
+        auto SquareArea(auto a = 0)
         {
               return a * a;
         }
-    
-        auto RectangleArea(auto a, auto b) 
+
+        auto RectangleArea(auto a = 0, auto b = a) 
         {
             return a * b;
         }
-     
-        auto TriangleArea(auto a, auto h)
+
+        auto TriangleArea(auto a = 0, auto h = 0)
         {
             return (a * h) / 2; 
         }
-     
-        auto ParallelogramArea(auto a, auto h)
+
+        auto ParallelogramArea(auto a = 0, auto h = Root(Pow(a, 2) - Pow(a/2, 2)))
         {
             return RectangleArea(a, h);
         }
