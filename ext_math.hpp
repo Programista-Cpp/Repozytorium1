@@ -1,5 +1,8 @@
-#ifndefef EXT_MATH_H_INCLUDED
+#ifndef EXT_MATH_H_INCLUDED
   #define EXT_MATH_H_INCLUDED 1
+	#include<iostream>
+	#include<vector>
+	#include<initializer_list>
   #define DEFAULT_ERR -1
   #define ERR(x) std::cerr << x;
   // Math
@@ -7,82 +10,83 @@
   {
     namespace proto_Vector /// Version: 0.1
     {
-       // 2D Vector
-       template<typename T>
-       struct Vector2
-       {
-       private:
-		 
-	   // Coordinates
-           T x;
-           T y;
+     	// 2D Vector
+     	template<typename T>
+     	struct Vector2
+     	{
+     	private:	 
+	 		// Coordinates
+     		T x;
+     		T y;
 
-	   // The core of any Vector here -- std::vector
-           std::vector<T> Vec {x, y};
+	 		// The core of any Vector here -- std::vector
+     		std::vector<T> Vec {x, y};
 
-	   // Vectors' properties
-           enum DIR{HORIZON, VERTIC, CROSS, null} Direction;
-       	   enum SENSEOFVEC{UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null} VecSense;
+	 		// Vectors' properties
+     		enum class DIR { HORIZON, VERTIC, CROSS, null } Direction;
+     		enum SENSEOFVEC { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, null } VecSense;
 
-      //================================================================================================= 
-      public:
-         
-	  Vector2() : x(0), y(0), Direction(null), VecSense(null) {}
-	  explicit Vector2(T x, T y, DIR Direction, SENSEOFVEC VecSense)
-	  {
-	  	this -> x = x;
-		this -> y = y;
-		this -> Direction = Direction;
-		this -> VecSense = VecSense;
-	  }
-	 // ---------------------------------------------------------------------------------------------
-         // Operators
-	 /// TODO: +=, -=, *=, /=, %=
-	 T& operator[](size_t i)
-	 {
-	 	return Vec[i];
-	 }
-         Vector2& operator-(Vector2& vec, Vector2& vec2)
-         {
-            Vector2 vec3;
-            vec3.x = vec.x - vec2.x;
-            vec3.y = vec.y - vec2.y;
-            return &vec3;
-         }
-         Vector2& operator+(Vector2& vec, Vector2& vec2)
-         {
-            Vector2 vec3;
-            vec3.x = vec.x + vec2.x;
-            vec3.y = vec.y + vec2.y;
-            return &vec3;
-         }
-         Vector2& operator*(Vector2& vec, Vector2& vec2)
-         {
-            Vector2 vec3;
-            vec3.x = vec.x * vec2.x;
-            vec3.y = vec.y * vec2.y;
-            return &vec3;
-         }
-         Vector2& operator/(Vector2& vec, Vector2& vec2)
-         {
-            Vector2 vec3;
-            vec3.x = vec.x / vec2.x;
-            vec3.y = vec.y / vec2.y;
-            return &vec3;
-         }
-         bool operator==(Vector2& vec, Vector2& vec2)
-         {
-            if((vec.x == vec2.x) && (vec.y == vec2.y) && (vec.DIR == vec2.DIR) && (vec.SENSEOFVECTOR == vec2.SENSEOFVECTOR))
-                 return true;
-            else return false;
-         }
-         bool operator!=(Vector2& vec, Vector2& vec2)
-         {
-            if(vec == vec2)
-                 return false;
-            else return true;
-         }
-       }
+     		//================================================================================================= 
+     	public:
+
+	 		Vector2() : x(0), y(0), Direction(DIR::null), VecSense(SENSEOFVEC::null) {}
+	 		explicit Vector2(T x, T y, DIR Direction, SENSEOFVEC VecSense)
+	 		{
+	 		 	this->x = x;
+				this->y = y;
+				this->Direction = Direction;
+			 	this->VecSense = VecSense;
+	 		}
+	 		explicit Vector2(T x, T y) { this->x = x; this->y = y; }
+			explicit Vector2(const Vector2& other) { return this = other; }
+			explicit Vector2(Vector2&& other) { return this = std::move(other); }
+	 		// ---------------------------------------------------------------------------------------------
+     		// Operators
+	 		/// TODO: +=, -=, *=, /=, %=
+			Vector2 operator=(const Vector2& other)
+			{
+				this->x = other.x;
+				this->y = other.y;
+				this->Direction = other.Direction;
+				this->VecSense = other.VecSense;
+				return *this;
+			}
+			Vector2 operator=(Vector2&& other) { return this = std::move(other); }
+	 		T& operator[](size_t i)
+	 		{
+	 			return Vec[i];
+	 		}
+     		friend Vector2& operator-(Vector2& vec, Vector2& vec2) { return Vector2(vec.x - vec2.x, vec.y - vec2.y); }
+     		friend Vector2& operator+(Vector2& vec, Vector2& vec2) { return Vector2(vec.x + vec2.x, vec.y + vec2.y); }
+     		friend Vector2& operator*(Vector2& vec, Vector2& vec2) { return Vector2(vec.x * vec2.x, vec.y * vec2.y); }
+     		friend Vector2& operator/(Vector2& vec, Vector2& vec2) { return Vector2(vec.x / vec2.x, vec.y / vec2.y); }
+
+	 		friend bool operator>(Vector2& vec, Vector2& vec2) { return vec.x == vec2.x && vec.y == vec2.y && vec.Direction == vec2.Direction && vec.VecSense == vec2.VecSense; }
+	 		friend bool operator<(Vector2& vec, Vector2& vec2) { return !(vec > vec2) && vec != vec2; }
+	 		friend bool operator>=(Vector2& vec, Vector2& vec2) { return !(vec < vec2); }
+	 		friend bool operator<=(Vector2& vec, Vector2& vec2) { return !(vec > vec2); }
+     		friend bool operator==(Vector2& vec, Vector2& vec2)
+     		{
+     		   if((vec.x == vec2.x) && (vec.y == vec2.y) && (vec.DIR == vec2.DIR) && (vec.SENSEOFVECTOR == vec2.SENSEOFVECTOR))
+     		       return true;
+     		   else return false;
+     		}
+     		friend bool operator!=(Vector2& vec, Vector2& vec2)
+     		{
+     		    if(vec == vec2)
+     		        return false;
+     		    else return true;
+     		}
+	 		friend short operator<=>(Vector2& vec, Vector2& vec2)
+	 		{
+				if(vec == vec2) return 0;
+				else if(vec > vec2) return 1;
+				else return -1;
+			}
+			Vector2 operator""v2(std::initializer_list<T>& list) { return Vector2(list[0], list[1]);}
+			Vector2 operator""v2(T& y) { return Vector2<T>(nullptr, y); } // Helper for operator ,(T, Vector2)
+			Vector2 operator,(T& x, Vector2& y) { return Vector2(x, y.y);
+	   };
     }
     namespace proto_pluralTheorem
     {
@@ -111,7 +115,7 @@
         auto Root(auto x, auto n)
         {
               return Pow(x, 1 / n);
-	}
+		}
         auto Abs(auto x = 0)
         {
               return Root(Pow(x, 2), 2);
