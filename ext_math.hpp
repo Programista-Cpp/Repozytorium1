@@ -1,8 +1,8 @@
 #ifndef EXT_MATH_H_INCLUDED
   #define EXT_MATH_H_INCLUDED 1
-	#include<iostream>
-	#include<vector>
-	#include<initializer_list>
+  #include<iostream>
+  #include<vector>
+  #include<initializer_list>
   #define DEFAULT_ERR -1
   #define ERR(x) std::cerr << x;
   // Math
